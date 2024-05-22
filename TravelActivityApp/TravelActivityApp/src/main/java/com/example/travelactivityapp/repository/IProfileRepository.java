@@ -1,4 +1,7 @@
 package com.example.travelactivityapp.repository;
 
-public interface IProfileRepository {
+import com.example.travelactivityapp.model.Profile;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IProfileRepository extends JpaRepository<Profile, Integer> {
 }

@@ -1,5 +1,6 @@
 package com.example.travelactivityapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String username;
+    @JsonIgnore // ensures that the password will not console log during login
     private String password;
     private String email;
     private String firstName;
