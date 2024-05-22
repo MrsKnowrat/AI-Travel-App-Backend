@@ -1,4 +1,7 @@
 package com.example.travelactivityapp.repository;
 
-public interface ITagRepository {
+import com.example.travelactivityapp.model.Tag;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ITagRepository extends JpaRepository<Tag, Integer> {
 }
