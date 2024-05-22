@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins =  "*")
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
+
+    // Create bulk list of user for testing purposes - include code with hashmap
 
     // Create new User - Sign up
     @PostMapping("/signup")
