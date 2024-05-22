@@ -6,11 +6,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 public class ProfileService {
     @Autowired
     private IProfileRepository profileRepository;
+
+    public Profile getProfileById(Integer id) {
+        Optional<Profile> profile = profileRepository.findById(id);
+        return profile.orElse(null);
+    }
 
     public Profile updateProfile(Integer id, Profile profile) {
         Profile existingProfile = profileRepository.findById(id).orElseThrow(() -> new RuntimeException("Profile not found"));
@@ -21,4 +28,12 @@ public class ProfileService {
         return profileRepository.save(existingProfile);
     }
 
+    // Delete Profile & User
+    public void deleteProfile(Integer id) {
+        Profile profile = profileRepository.findById(id).orElseThrow(() -> new RuntimeException("Profile not found"));
+        if (profile.getUser() != null) {
+            userRepository.delete(profile.getUser());
+        }
+        profileRepository.delete(profile);
+    }
 }
