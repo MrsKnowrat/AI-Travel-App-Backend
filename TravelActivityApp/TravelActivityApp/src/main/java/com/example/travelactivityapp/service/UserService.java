@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class UserService {
+
     @Autowired
     private IUserRepository userRepository; // dependency injection.
 
