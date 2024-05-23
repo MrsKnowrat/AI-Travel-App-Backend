@@ -7,7 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+
 
 @Slf4j
 @Service
@@ -23,9 +24,12 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
-    public Profile getProfileById(Integer id) {
-        Optional<Profile> profile = profileRepository.findById(id);
-        return profile.orElse(null);
+    public List<Profile> getProfileByUserId(Integer userId) {
+        List<Profile> profiles = profileRepository.getProfileByUserUserId(userId);
+        if (profiles.isEmpty()) {
+            throw new RuntimeException("No profiles found for the user with ID: " + userId);
+        }
+        return profiles;
     }
 
     public Profile updateProfile(Integer id, Profile profile) {

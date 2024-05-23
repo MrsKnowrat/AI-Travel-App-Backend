@@ -12,6 +12,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class TagService {
+
     @Autowired
     private ITagRepository tagRepository;
 
@@ -34,7 +35,7 @@ public class TagService {
     public Tag updateTag(Integer id, Tag tagDetails) {
         Tag tag = tagRepository.findById(id).orElseThrow(() -> new RuntimeException("Tag not found"));
 
-        tag.setName(tagDetails.getName());
+        tag.setTagName(tagDetails.getTagName());
 
         return tagRepository.save(tag);
     }

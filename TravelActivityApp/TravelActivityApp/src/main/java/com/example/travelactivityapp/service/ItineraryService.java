@@ -23,8 +23,12 @@ public class ItineraryService {
         return itineraryRepository.save(itinerary);
     }
 
-    public List<Itinerary> getUserItineraries(Integer userId) {
-        return itineraryRepository.findByUserId(userId);
+    public List<Itinerary> getUserItinerariesByUserId(Integer userId) {
+        List<Itinerary> itineraries = itineraryRepository.findItinerariesByUserUserId(userId);
+        if (itineraries.isEmpty()) {
+            throw new RuntimeException("No itineraries found for the user with ID: " + userId);
+        }
+        return itineraries;
     }
 
 }

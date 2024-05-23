@@ -18,7 +18,7 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer activityId;
 
-    private String name;
+    private String activityName;
     private String description;
     private String location;
     private LocalDateTime startTime;

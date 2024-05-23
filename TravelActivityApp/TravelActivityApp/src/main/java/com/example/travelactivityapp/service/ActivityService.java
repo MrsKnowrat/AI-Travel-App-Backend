@@ -12,6 +12,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class ActivityService {
+
     @Autowired
     private IActivityRepository activityRepository;
 
@@ -34,7 +35,7 @@ public class ActivityService {
     public Activity updateActivity(Integer id, Activity activityDetails) {
         Activity activity = activityRepository.findById(id).orElseThrow(() -> new RuntimeException("Activity not found"));
 
-        activity.setName(activityDetails.getName());
+        activity.setActivityName(activityDetails.getActivityName());
         activity.setDescription(activityDetails.getDescription());
         activity.setLocation(activityDetails.getLocation());
         activity.setStartTime(activityDetails.getStartTime());
