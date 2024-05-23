@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IItineraryRepository extends JpaRepository<Itinerary, Integer> {
-    List<Itinerary> findByUserId(Long userId);
+    List<Itinerary> findByUserId(Integer userId);
 }

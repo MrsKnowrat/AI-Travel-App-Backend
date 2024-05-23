@@ -18,7 +18,7 @@ public class Itinerary {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer itineraryId;
 
-    private String name;
+    private String itineraryName;
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -40,4 +40,6 @@ public class Itinerary {
             joinColumns = @JoinColumn(name = "itinerary_id"),
             inverseJoinColumns = @JoinColumn(name = "activity_id"))
     private Set<Activity> activities = new HashSet<>();
+
+    //Set is used instead of List for faster lookup times and it does not allow duplicate elements
 }

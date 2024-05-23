@@ -17,7 +17,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer tagId;
 
-    private String name;
+    private String tagName;
 
     @ManyToMany(mappedBy = "tags")
     private Set<Itinerary> itineraries = new HashSet<>();

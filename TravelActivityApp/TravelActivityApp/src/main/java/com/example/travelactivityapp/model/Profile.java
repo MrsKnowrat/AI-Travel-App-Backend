@@ -20,6 +20,7 @@ public class Profile {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "profile")
+    @OneToOne(mappedBy = "profile")
+    @JoinColumn(name = "user_id")
     private User user; // This defines relationship between the User and Profile entities in relational DB managed by JPA.
 }
