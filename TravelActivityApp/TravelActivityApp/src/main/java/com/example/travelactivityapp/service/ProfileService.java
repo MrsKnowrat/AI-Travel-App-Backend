@@ -2,6 +2,7 @@ package com.example.travelactivityapp.service;
 
 import com.example.travelactivityapp.model.Profile;
 import com.example.travelactivityapp.repository.IProfileRepository;
+import com.example.travelactivityapp.repository.IUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,16 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class ProfileService {
+
     @Autowired
     private IProfileRepository profileRepository;
+
+    @Autowired
+    private IUserRepository userRepository;
+
+    public Profile createProfile(Profile profile) {
+        return profileRepository.save(profile);
+    }
 
     public Profile getProfileById(Integer id) {
         Optional<Profile> profile = profileRepository.findById(id);

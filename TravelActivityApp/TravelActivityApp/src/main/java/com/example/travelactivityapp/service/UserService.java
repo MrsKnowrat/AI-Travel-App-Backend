@@ -18,6 +18,11 @@ public class UserService {
 
     // Create New User & Profile
     public User signup(User user) {
+        // Check if the username already exists
+        if (userRepository.findByUsername(user.getUsername()) != null) {
+            return null; // Username already in use
+        }
+
         // Create and save the profile
         Profile profile = new Profile();
         profile.setBio("Default bio"); // Set default values for the profile
@@ -29,6 +34,11 @@ public class UserService {
         user.setProfile(savedProfile);
         return userRepository.save(user);
     }
+    // This method allows the Create User method in UserController and UserService to function properly during signups
+    public boolean isUsernameTaken(String username) {
+        return userRepository.findByUsername(username) != null;
+    }
+
     // Read/Get User by Username
     public boolean login(String username, String password) {
         User user = userRepository.findByUsername(username);

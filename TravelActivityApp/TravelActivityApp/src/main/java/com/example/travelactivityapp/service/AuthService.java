@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class AuthService {
+
     @Autowired
     private IUserRepository userRepository;
 

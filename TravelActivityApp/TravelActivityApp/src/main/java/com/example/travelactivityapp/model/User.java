@@ -43,11 +43,10 @@ public class User {
     @NotBlank(message = "Date of birth is required")
     private LocalDate dateOfBirth;
 
-    @OneToOne(cascade = CascadeType.ALL) // 1:1 relationship with Profile class.
+    @OneToOne(cascade = CascadeType.ALL) // 1:1 relationship with Profile class and reflects that profile will be created when user is created.
     @JoinColumn(name = "profile_id", nullable = false, unique = true)
     private Profile profile;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Itinerary> itineraries = new ArrayList<>();
-
 }
