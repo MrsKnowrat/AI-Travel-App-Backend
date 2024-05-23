@@ -2,6 +2,7 @@ package com.example.travelactivityapp.service;
 
 import com.example.travelactivityapp.model.Profile;
 import com.example.travelactivityapp.model.User;
+import com.example.travelactivityapp.repository.IProfileRepository;
 import com.example.travelactivityapp.repository.IUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class UserService {
     private IUserRepository userRepository; // dependency injection.
 
     @Autowired
-    private ProfileService profileService;
+    private IProfileRepository profileRepository;
 
     // Create New User & Profile
     public User signup(User user) {
@@ -28,7 +29,7 @@ public class UserService {
         profile.setBio("Default bio"); // Set default values for the profile
         profile.setProfilePicture("default.png");
         profile.setPreferences("default preferences");
-        Profile savedProfile = profileService.createProfile(profile);
+        Profile savedProfile = profileRepository.save(profile);
 
         // Link the profile to the user and save the user
         user.setProfile(savedProfile);

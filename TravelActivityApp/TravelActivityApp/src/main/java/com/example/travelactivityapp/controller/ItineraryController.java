@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/itineraries")
 public class ItineraryController {
+
     @Autowired
     private ItineraryService itineraryService;
 
@@ -23,9 +24,11 @@ public class ItineraryController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Itinerary>> getUserItineraries(@PathVariable Integer userId) {
-        List<Itinerary> itineraries = itineraryService.getUserItineraries(userId);
-        return ResponseEntity.ok(itineraries);
+    public List<Itinerary> getUserItinerariesByUserId(Integer userId) {
+        List<Itinerary> itineraries = itineraryService.getUserItinerariesByUserId(userId);
+        if (itineraries.isEmpty()) {
+            throw new RuntimeException("No itineraries found for the user with ID: " + userId);
+        }
+        return itineraries;
     }
-
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/profiles")
@@ -15,14 +17,13 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Profile> getProfileById(@PathVariable Integer id) {
-        Profile profile = profileService.getProfileById(id);
-        if (profile != null) {
-            return ResponseEntity.ok(profile);
-        } else {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Profile>> getProfileByUserId(@PathVariable Integer userId) {
+        List<Profile> profile = profileService.getProfileByUserId(userId);
+        if (profile.isEmpty()) {
+            throw new RuntimeException("No profiles found for the user with ID: " + userId);
         }
+        return ResponseEntity.ok(profile);
     }
 
     @PutMapping("/{id}")
@@ -30,6 +31,7 @@ public class ProfileController {
         Profile updatedProfile = profileService.updateProfile(id, profileDetails);
         return ResponseEntity.ok(updatedProfile);
     }
+
     // Delete Profile & User
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfile(@PathVariable Integer id) {
