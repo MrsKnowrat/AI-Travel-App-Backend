@@ -30,7 +30,6 @@ public class User {
     @NotBlank(message = "Username is required")
     private String username;
 
-
     @Size(min = 8, message = "Password must be at least 8 characters long")
     @Column(name = "password", nullable = false, length = 255)
     @JsonIgnore // ensures that the password will not console log during login
@@ -40,16 +39,6 @@ public class User {
     @NotBlank(message = "Email address is required") // checks email address to have an @ and .
     @Email(message = "Email address should be valid")
     private String email;
-
-    @NotBlank(message = "First name is required")
-    private String firstName;
-
-    @NotBlank(message = "Last name is required")
-    private String lastName;
-
-    @NotBlank(message = "Date of birth is required")
-    @DateTimeFormat(pattern = "dd/mm/yyyy")
-    private LocalDate dateOfBirth;
 
     @Embedded
     @Column(name = "address", nullable = false)
