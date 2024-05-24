@@ -2,6 +2,7 @@ package com.example.travelactivityapp.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,14 +10,15 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Builder
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer activityId;
+    private Long id;
 
     private String activityName;
     private String description;
