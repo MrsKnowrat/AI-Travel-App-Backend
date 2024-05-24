@@ -5,22 +5,24 @@ import com.example.travelactivityapp.repository.ITagRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class TagService {
 
     @Autowired
-    private ITagRepository tagRepository;
+    ITagRepository tagRepository;
 
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
     }
 
-    public Optional<Tag> getTagById(Integer id) {
+    public Optional<Tag> getTagById(Long id) {
         return tagRepository.findById(id);
     }
 
@@ -28,11 +30,11 @@ public class TagService {
         return tagRepository.save(tag);
     }
 
-    public void deleteTag(Integer id) {
+    public void deleteTag(Long id) {
         tagRepository.deleteById(id);
     }
 
-    public Tag updateTag(Integer id, Tag tagDetails) {
+    public Tag updateTag(Long id, Tag tagDetails) {
         Tag tag = tagRepository.findById(id).orElseThrow(() -> new RuntimeException("Tag not found"));
 
         tag.setTagName(tagDetails.getTagName());

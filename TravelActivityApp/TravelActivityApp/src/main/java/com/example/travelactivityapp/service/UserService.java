@@ -7,16 +7,18 @@ import com.example.travelactivityapp.repository.IUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
-    private IUserRepository userRepository; // dependency injection.
+    IUserRepository userRepository; // dependency injection.
 
     @Autowired
-    private IProfileRepository profileRepository;
+    IProfileRepository profileRepository;
 
     // Create New User & Profile
     public User signup(User user) {
@@ -47,7 +49,7 @@ public class UserService {
         return user != null && user.getPassword().equals(password);
     }
     // Update user
-    public User updateUser(Integer id, User userDetails) {
+    public User updateUser(Long id, User userDetails) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setFirstName(userDetails.getFirstName());
