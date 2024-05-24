@@ -3,6 +3,7 @@ package com.example.travelactivityapp.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,12 +34,7 @@ public class Address {
 
     @NotBlank(message = "Zip Code is required")
     @Size(max = 20, message = "Zip code must be less than 20 characters")
-    // Regex was not used so it is possible for postal codes that include letters to be used, i.e. UK)
+    @Pattern(regexp = "\\d{5}(-\\d{4})?")
     @Column(name = "zipCode", nullable = false, length = 20)
     private String zipCode;
-
-    @NotBlank(message = "Country name is required")
-    @Size(max = 20, message = "Country name must be less than 50 characters")
-    @Column(name = "country", nullable = false, length = 50)
-    private String country;
 }
