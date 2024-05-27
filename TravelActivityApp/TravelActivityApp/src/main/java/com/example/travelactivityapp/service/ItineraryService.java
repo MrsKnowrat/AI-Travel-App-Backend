@@ -34,7 +34,7 @@ public class ItineraryService {
     }
 
     public List<Itinerary> getUserItinerariesByUserId(Long id) {
-        List<Itinerary> itineraries = itineraryRepository.findItinerariesByUserUserId(id);
+        List<Itinerary> itineraries = itineraryRepository.findItinerariesByUserId(id);
         if (itineraries.isEmpty()) {
             throw new RuntimeException("No itineraries found for the user with ID: " + id);
         }
@@ -52,6 +52,6 @@ public class ItineraryService {
 
     public List<Itinerary> getAllItinerariesByUser(String username) {
         User user = userRepository.findUserByUsername(username).orElseThrow(() -> new RuntimeException("User with username " + username + " not found"));
-        return itineraryRepository.findAllByUserId(user.getId());
+        return itineraryRepository.findAllByUser_Id(user.getId());
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LoggingConfig {
 
-    @Bean
+   // @Bean - this was commented out to resolve a circular reference and remove dependency cycle between beans
     public LoggingAspect loggingAspect() {
         return new LoggingAspect();
     }

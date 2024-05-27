@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
-    private UserService userService;
+    UserService userService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {

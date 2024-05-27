@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface IProfileRepository extends JpaRepository<Profile, Long> {
 
-    List<Profile> getProfileByUserUserId(Long userId);
+    List<Profile> getProfileByUserId(Long id);
+
+    //List<Profile> getProfileByUserUserId(Long id);
 }

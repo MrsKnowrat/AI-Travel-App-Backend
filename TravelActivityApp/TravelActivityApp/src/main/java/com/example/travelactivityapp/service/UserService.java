@@ -1,5 +1,6 @@
 package com.example.travelactivityapp.service;
 
+import ch.qos.logback.core.model.Model;
 import com.example.travelactivityapp.dto.UserLoginDTO;
 import com.example.travelactivityapp.dto.UserRegistrationDTO;
 import com.example.travelactivityapp.dto.UserUpdateDTO;
@@ -11,6 +12,7 @@ import com.example.travelactivityapp.util.ModelMapperUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,11 +25,8 @@ public class UserService {
     @Autowired
     IUserRepository userRepository; // dependency injection.
 
-   // @Autowired
-   // ModelMapperUtil modelMapperUtil;
-
     @Autowired
-    ModelMapper modelMapper;
+    ModelMapperUtil modelMapperUtil;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -35,9 +34,16 @@ public class UserService {
     @Autowired
     IProfileRepository profileRepository;
 
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public UserService(@Lazy ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
     public User registerUser(UserRegistrationDTO userRegistrationDTO) {
         try {
-            User newUser = modelMapper.map(userRegistrationDTO, User.class);
+            User newUser = modelMapperUtil.map(userRegistrationDTO, User.class);
             String rawPassword = newUser.getPassword();
             String encodedPassword = passwordEncoder.encode(rawPassword);
 

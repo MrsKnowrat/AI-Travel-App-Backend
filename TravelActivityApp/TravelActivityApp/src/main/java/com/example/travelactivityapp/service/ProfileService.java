@@ -27,7 +27,7 @@ public class ProfileService {
     }
 
     public List<Profile> getProfileByUserId(Long id) {
-        List<Profile> profiles = profileRepository.getProfileByUserUserId(id);
+        List<Profile> profiles = profileRepository.getProfileByUserId(id);
         if (profiles.isEmpty()) {
             throw new RuntimeException("No profiles found for the user with ID: " + id);
         }
