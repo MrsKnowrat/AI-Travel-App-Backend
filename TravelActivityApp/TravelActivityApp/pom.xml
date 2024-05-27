@@ -54,7 +54,17 @@
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>3.3.0</version>
         </dependency>
-
+        <!--Model Mapper; takes 2 classes with identical attributes, it will map them for you-->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <!--Security Related-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

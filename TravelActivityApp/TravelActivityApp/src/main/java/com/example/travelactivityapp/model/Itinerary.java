@@ -20,7 +20,7 @@ public class Itinerary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "userId", updatable = false, nullable = false)
+    @Column(name = "user_Id", updatable = false, nullable = false)
     private Long id;
 
     @NotBlank(message = "Title is required")
@@ -38,7 +38,7 @@ public class Itinerary {
     private LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
     private User user;
 
     @ManyToMany
