@@ -8,7 +8,8 @@ import java.util.List;
 
 @Repository
 public interface IItineraryRepository extends JpaRepository<Itinerary, Long> {
-    List<Itinerary> findItinerariesByUserUserId(Long userId); // keep?
+    List<Itinerary> findItinerariesByUserId(Long id);
 
-    List<Itinerary> findAllByUserId(Long userId);
+    List<Itinerary> findAllByUser_Id(Long userId);
+
 }

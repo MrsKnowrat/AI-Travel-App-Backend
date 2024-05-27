@@ -20,6 +20,7 @@ import java.util.List;
 @Builder
 @Table(name = "\"User\"", uniqueConstraints = {@UniqueConstraint(columnNames = {"email", "username"})})
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
