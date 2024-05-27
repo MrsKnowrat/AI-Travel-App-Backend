@@ -9,9 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,19 +24,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "username", nullable = false, length = 50, unique = true)
     @NotBlank(message = "Username is required")
+    @Column(name = "username", nullable = false, length = 50, unique = true)
     private String username;
-
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    @Column(name = "password", nullable = false, length = 255)
-    @JsonIgnore // ensures that the password will not console log during login
-    private String password;
 
     @Column(name = "email", nullable = false, length = 50, unique = true)
     @NotBlank(message = "Email address is required") // checks email address to have an @ and .
     @Email(message = "Email address should be valid")
     private String email;
+
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Column(name = "password", nullable = false, length = 255)
+    @JsonIgnore // ensures that the password will not console log during login
+    private String password;
 
     @Embedded
     @Column(name = "address", nullable = false)
