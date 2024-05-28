@@ -34,7 +34,7 @@ public class UserService {
     @Autowired
     IProfileRepository profileRepository;
 
-    private final ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     public UserService(@Lazy ModelMapper modelMapper) {
