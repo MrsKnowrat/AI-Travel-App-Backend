@@ -4,6 +4,7 @@ import com.example.travelactivityapp.model.Address;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -35,6 +36,7 @@ public class UserRegistrationDTO {
     @Column(name = "password", nullable = false, length = 255) // since JsonIgnore is in User class, we don't need it here
     private String password;
 
+    @Valid
     @Embedded
     @Column(name = "address", nullable = false)
     private Address address;

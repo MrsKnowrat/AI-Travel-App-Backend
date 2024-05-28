@@ -28,19 +28,6 @@ public class ItineraryService {
     @Autowired
     ModelMapperUtil modelMapperUtil;
 
-    public Itinerary saveItinerary(Itinerary itinerary, Long id) {
-        itinerary.setUser(userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found")));
-        return itineraryRepository.save(itinerary);
-    }
-
-    public List<Itinerary> getUserItinerariesByUserId(Long id) {
-        List<Itinerary> itineraries = itineraryRepository.findItinerariesByUserId(id);
-        if (itineraries.isEmpty()) {
-            throw new RuntimeException("No itineraries found for the user with ID: " + id);
-        }
-        return itineraries;
-    }
-
     public Itinerary createItineraryForUser(ItineraryDTO itineraryDTO) {
         User user = userRepository.findUserByUsername(itineraryDTO.getUsername()).orElseThrow(() -> new RuntimeException("User with email " + itineraryDTO.getUsername() + " not found"));
 
@@ -49,9 +36,24 @@ public class ItineraryService {
 
         return itineraryRepository.save(newItinerary);
     }
+//keep this?
+    public List<Itinerary> getUserItinerariesByUserId(Long id) {
+        List<Itinerary> itineraries = itineraryRepository.findItinerariesByUserId(id);
+        if (itineraries.isEmpty()) {
+            throw new RuntimeException("No itineraries found for the user with ID: " + id);
+        }
+        return itineraries;
+    }
 
     public List<Itinerary> getAllItinerariesByUser(String username) {
         User user = userRepository.findUserByUsername(username).orElseThrow(() -> new RuntimeException("User with username " + username + " not found"));
         return itineraryRepository.findAllByUser_Id(user.getId());
     }
+
+    public Itinerary saveItinerary(Itinerary itinerary, Long id) {
+        itinerary.setUser(userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found")));
+        return itineraryRepository.save(itinerary);
+    }
+
+
 }
