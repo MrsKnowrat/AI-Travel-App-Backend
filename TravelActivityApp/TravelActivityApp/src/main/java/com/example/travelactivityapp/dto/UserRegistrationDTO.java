@@ -7,11 +7,15 @@ import jakarta.persistence.Embedded;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -35,9 +39,21 @@ public class UserRegistrationDTO {
     @Column(name = "password", nullable = false, length = 255) // since JsonIgnore is in User class, we don't need it here
     private String password;
 
+    @NotBlank(message = "First name is required")
+    @Column(name = "firstName", nullable = false, length = 50)
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    @Column(name = "lastName", nullable = false, length = 50)
+    private String lastName;
+
+    @NotNull(message = "Date of birth is required in this format: yyyy/mm/dd\"")
+    @Column(name = "dateOfBirth", nullable = false, length = 10)
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate dateOfBirth;
+
     @Valid
     @Embedded
     @Column(name = "address", nullable = false)
     private Address address;
-
 }
