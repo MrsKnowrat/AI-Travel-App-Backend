@@ -22,7 +22,14 @@ import java.util.List;
 public class ItineraryController {
 
     @Autowired
-    private ItineraryService itineraryService;
+    ItineraryService itineraryService;
+
+    /* CRUD
+    C- Included here
+    R- Included here
+    U- Included here
+    D- Included here
+    */
 
     // Create Itinerary
     @PostMapping
@@ -41,18 +48,37 @@ public class ItineraryController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Itinerary> saveItinerary(@RequestBody Itinerary itinerary, @RequestParam Long id) {
-        Itinerary savedItinerary = itineraryService.saveItinerary(itinerary, id);
-        return ResponseEntity.ok(savedItinerary);
+    // Get Itinerary By User ID - delete this
+//    @GetMapping("/user/{userId}")
+//    public List<Itinerary> getUserItinerariesByUserId(Long id) {
+//        List<Itinerary> itineraries = itineraryService.getUserItinerariesByUserId(id);
+//        if (itineraries.isEmpty()) {
+//            throw new RuntimeException("No itineraries found for the user with ID: " + id);
+//        }
+//        return itineraries;
+//    }
+
+    // Update/Save Itinerary
+    public ResponseEntity<?> saveItinerary(@RequestBody Itinerary itinerary, @RequestParam Long id) {
+        try {
+            Itinerary savedItinerary = itineraryService.saveItinerary(itinerary, id);
+            CommonResponse response = CommonResponse.builder()
+                    .hasError(false)
+                    .data(savedItinerary)
+                    .message("Itinerary saved successfully")
+                    .status(HttpStatus.OK)
+                    .build();
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            CommonResponse response = CommonResponse.builder()
+                    .hasError(true)
+                    .message("Error saving itinerary: " + e.getMessage())
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Itinerary> getUserItinerariesByUserId(Long id) {
-        List<Itinerary> itineraries = itineraryService.getUserItinerariesByUserId(id);
-        if (itineraries.isEmpty()) {
-            throw new RuntimeException("No itineraries found for the user with ID: " + id);
-        }
-        return itineraries;
-    }
+    // Delete Itinerary
+
 }
