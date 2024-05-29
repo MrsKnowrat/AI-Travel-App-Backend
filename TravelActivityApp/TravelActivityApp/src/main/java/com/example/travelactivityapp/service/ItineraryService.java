@@ -51,13 +51,13 @@ public class ItineraryService {
     }
 
 //keep this?
-    public List<Itinerary> getUserItinerariesByUserId(Long id) {
-        List<Itinerary> itineraries = itineraryRepository.findItinerariesByUserId(id);
-        if (itineraries.isEmpty()) {
-            throw new RuntimeException("No itineraries found for the user with ID: " + id);
-        }
-        return itineraries;
-    }
+//    public List<Itinerary> getUserItinerariesByUserId(Long id) {
+//        List<Itinerary> itineraries = itineraryRepository.findItinerariesByUserId(id);
+//        if (itineraries.isEmpty()) {
+//            throw new RuntimeException("No itineraries found for the user with ID: " + id);
+//        }
+//        return itineraries;
+//    }
 
     // Update/Save Itinerary
     public Itinerary saveItinerary(Itinerary itinerary, Long id) {

@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Slf4j
 @Service
 @Transactional
@@ -37,7 +39,7 @@ public class UserService {
     U- Included here
     D- Not necessary here, as it will be deleted if the User deletes their profile
     */
-
+    @Transactional
     public User registerUser(UserRegistrationDTO userRegistrationDTO) {
         try {
             User newUser = modelMapperUtil.map(userRegistrationDTO, User.class);
@@ -46,10 +48,16 @@ public class UserService {
             // Create and set the profile
             Profile newProfile = new Profile();
             // Set default values or use DTO to set profile details
-            newProfile.setFirstName("DefaultFirstName");
-            newProfile.setLastName("DefaultLastName");
-            newUser.setProfile(newProfile); // Associate profile with user
-
+            //newProfile.setFirstName("");
+            newProfile.setFirstName(userRegistrationDTO.getFirstName());
+            //newProfile.setLastName("");
+            newProfile.setLastName(userRegistrationDTO.getLastName());
+            //newProfile.setDateOfBirth(LocalDate.now());
+            newProfile.setDateOfBirth(userRegistrationDTO.getDateOfBirth());
+            //userRepository.save(newUser);
+            newProfile.setUser(newUser);
+            Profile savedProfile = profileRepository.save(newProfile); // Save the profile first
+            newUser.setProfile(savedProfile); // Set the saved profile to the user
             return userRepository.save(newUser); // Saves both User and Profile due to CascadeType.ALL
         } catch (Exception e) {
             if (e.getMessage().contains("Violates unique constraint")) {

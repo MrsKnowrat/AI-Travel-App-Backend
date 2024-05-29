@@ -48,15 +48,24 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
-        System.out.println(userRegistrationDTO); //  remove this line once debugging is complete
-        User user = userService.registerUser(userRegistrationDTO);
-        CommonResponse response = CommonResponse.builder()
+        try {
+            User user = userService.registerUser(userRegistrationDTO);
+            CommonResponse response = CommonResponse.builder()
                 .hasError(false)
                 .data(user)
                 .message("User and profile created successfully")
                 .status(HttpStatus.OK)
                 .build();
-        return ResponseEntity.ok(response);
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            CommonResponse response = CommonResponse.builder()
+                    .hasError(true)
+                    .error(e.getMessage())
+                    .message("Failed to create user")
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     @PostMapping("/login")

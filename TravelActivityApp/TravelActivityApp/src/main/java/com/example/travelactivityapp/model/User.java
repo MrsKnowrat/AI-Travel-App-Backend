@@ -26,10 +26,12 @@ public class User {
     private Long id;
 
     @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     @Column(name = "username", nullable = false, length = 50, unique = true)
     private String username;
 
     @Column(name = "email", nullable = false, length = 50, unique = true)
+    @Size(min = 3, max = 50, message = "Email must be between 3 and 50 characters")
     @NotBlank(message = "Email address is required") // checks email address to have an @ and .
     @Email(message = "Email address should be valid")
     private String email;
