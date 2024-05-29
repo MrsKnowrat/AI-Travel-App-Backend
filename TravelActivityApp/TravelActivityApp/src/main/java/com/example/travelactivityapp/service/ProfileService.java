@@ -22,9 +22,12 @@ public class ProfileService {
     @Autowired
     IUserRepository userRepository;
 
-    public Profile createProfile(Profile profile) {
-        return profileRepository.save(profile);
-    }
+    /* CRUD
+    C- Not included here: handled by AuthController & UserService signup methods
+    R- Included here (add get profile by username?)
+    U- Included here
+    D- Included here (make sure this also deletes the User)
+    */
 
     public List<Profile> getProfileByUserId(Long id) {
         List<Profile> profiles = profileRepository.getProfileByUserId(id);

@@ -29,28 +29,30 @@ public class UserService {
     ModelMapperUtil modelMapperUtil;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
     IProfileRepository profileRepository;
 
-    private ModelMapper modelMapper;
-
-    @Autowired
-    public UserService(@Lazy ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
+    /* CRUD
+    C- Included here: handled by AuthController & UserService signup & login methods
+    R- Included here
+    U- Included here
+    D- Not necessary here, as it will be deleted if the User deletes their profile
+    */
 
     public User registerUser(UserRegistrationDTO userRegistrationDTO) {
         try {
             User newUser = modelMapperUtil.map(userRegistrationDTO, User.class);
-            String rawPassword = newUser.getPassword();
-            String encodedPassword = passwordEncoder.encode(rawPassword);
+            newUser.setPassword(userRegistrationDTO.getPassword()); // Set the password directly from DTO
 
-            newUser.setPassword(encodedPassword);
-            return userRepository.save(newUser);
+            // Create and set the profile
+            Profile newProfile = new Profile();
+            // Set default values or use DTO to set profile details
+            newProfile.setFirstName("DefaultFirstName");
+            newProfile.setLastName("DefaultLastName");
+            newUser.setProfile(newProfile); // Associate profile with user
+
+            return userRepository.save(newUser); // Saves both User and Profile due to CascadeType.ALL
         } catch (Exception e) {
-            if (e.getMessage().contains("violates unique constraint")) {
+            if (e.getMessage().contains("Violates unique constraint")) {
                 throw new RuntimeException("Username or email you provided already exists");
             }
             throw new RuntimeException(e.getLocalizedMessage(), e);
@@ -59,7 +61,7 @@ public class UserService {
 
     public User loginUser(UserLoginDTO userLoginDTO) {
         User existingUser = userRepository.findUserByEmail(userLoginDTO.getEmail()).orElseThrow(() -> new RuntimeException("User with email " + userLoginDTO.getEmail() + " not found"));
-        if (!passwordEncoder.matches(userLoginDTO.getPassword(), existingUser.getPassword())) {
+        if (!userLoginDTO.getPassword().equals(existingUser.getPassword())) {
             throw new RuntimeException("The provided password is incorrect");
         }
 
@@ -76,17 +78,15 @@ public class UserService {
     public User updateUserByUsername(String username, UserUpdateDTO userUpdateDTO) {
         User existingUser = userRepository.findUserByUsername(username).orElseThrow(() -> new RuntimeException("User with email " + username + " not found"));
 
-        if(!passwordEncoder.matches(userUpdateDTO.getOldPassword(), existingUser.getPassword())) {
+        if (!userUpdateDTO.getOldPassword().equals(existingUser.getPassword())) {
             throw new RuntimeException("The provided password is incorrect");
         }
         existingUser.setUsername(userUpdateDTO.getUsername());
         existingUser.setEmail(userUpdateDTO.getEmail());
         existingUser.setAddress(userUpdateDTO.getAddress());
-        existingUser.setPassword(passwordEncoder.encode(userUpdateDTO.getNewPassword()));
+        existingUser.setPassword(userUpdateDTO.getNewPassword()); // Set the new password directly
 
         userRepository.save(existingUser);
         return existingUser;
     }
-
-    // No need to include User delete method, as it will be deleted of the User deletes their profile
 }

@@ -5,13 +5,18 @@ package com.example.travelactivityapp.controller;
 import com.example.travelactivityapp.dto.CommonResponse;
 import com.example.travelactivityapp.dto.UserLoginDTO;
 import com.example.travelactivityapp.dto.UserRegistrationDTO;
+import com.example.travelactivityapp.model.Profile;
 import com.example.travelactivityapp.model.User;
+import com.example.travelactivityapp.repository.IUserRepository;
+import com.example.travelactivityapp.service.ProfileService;
 import com.example.travelactivityapp.service.UserService;
+import com.example.travelactivityapp.util.ModelMapperUtil;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +30,32 @@ public class AuthController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    IUserRepository userRepository;
+
+    @Autowired
+    ProfileService profileService;
+
+    @Autowired
+    ModelMapperUtil modelMapperUtil;
+
+    /* CRUD
+    C- Included here: handled by AuthController & UserService signup and login methods
+    R- Not necessary here
+    U- Not necessary here
+    D- Not necessary here
+    */
+
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO) {
-        System.out.println(userRegistrationDTO);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
+        System.out.println(userRegistrationDTO); //  remove this line once debugging is complete
         User user = userService.registerUser(userRegistrationDTO);
-        CommonResponse response = CommonResponse.builder().hasError(false).data(user).message("User created successfully").status(HttpStatus.OK).build();
+        CommonResponse response = CommonResponse.builder()
+                .hasError(false)
+                .data(user)
+                .message("User and profile created successfully")
+                .status(HttpStatus.OK)
+                .build();
         return ResponseEntity.ok(response);
     }
 
@@ -40,3 +66,4 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 }
+

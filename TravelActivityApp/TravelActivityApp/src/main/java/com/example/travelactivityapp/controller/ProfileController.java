@@ -20,6 +20,13 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
+    /* CRUD
+    C- Not included here: handled by AuthController & UserService signup methods
+    R- Included here (add get profile by username?)
+    U- Included here
+    D- Included here (make sure this also deletes the User)
+    */
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Profile>> getProfileByUserId(@PathVariable Long id) {
         List<Profile> profile = profileService.getProfileByUserId(id);

@@ -23,8 +23,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Create bulk list of user for testing purposes - include code with hashmap
-    // CRUD - C- done by sign-in R- done here U- done here / D- Isn't included here
+    /* CRUD
+    C- Not included here: handled by AuthController & UserService signup and login methods
+    R- Included here
+    U- Included here
+    D- Included here
+    */
+
     @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@Valid @PathVariable String username) {
         User user = userService.getUserByUsername(username);
@@ -38,6 +43,8 @@ public class UserController {
         User updatedUser = userService.updateUserByUsername(username, userUpdateDTO);
         CommonResponse response = CommonResponse.builder().hasError(false).data(updatedUser).message("User updated successfully").status(HttpStatus.OK).build();
         return ResponseEntity.ok(response);
-
     }
+
+    // Delete User
+
 }
