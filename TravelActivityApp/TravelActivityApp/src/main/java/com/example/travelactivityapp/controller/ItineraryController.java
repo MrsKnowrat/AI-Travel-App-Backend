@@ -24,16 +24,10 @@ public class ItineraryController {
     @Autowired
     ItineraryService itineraryService;
 
-    /* CRUD
-    C- Included here
-    R- Included here
-    U- Included here
-    D- Included here
-    */
-
     // Create Itinerary
     @PostMapping
     public ResponseEntity<?> createItinerary(@Valid @RequestBody ItineraryDTO itineraryDTO) {
+        System.out.println("I've been activated");
         Itinerary itinerary = itineraryService.createItineraryForUser(itineraryDTO);
         CommonResponse response = CommonResponse.builder().hasError(false).data(itinerary).message("Itinerary created successfully").status(HttpStatus.OK).build();
         return ResponseEntity.ok(response);
@@ -47,16 +41,6 @@ public class ItineraryController {
 
         return ResponseEntity.ok(response);
     }
-
-    // Get Itinerary By User ID - delete this
-//    @GetMapping("/user/{userId}")
-//    public List<Itinerary> getUserItinerariesByUserId(Long id) {
-//        List<Itinerary> itineraries = itineraryService.getUserItinerariesByUserId(id);
-//        if (itineraries.isEmpty()) {
-//            throw new RuntimeException("No itineraries found for the user with ID: " + id);
-//        }
-//        return itineraries;
-//    }
 
     // Update/Save Itinerary
     public ResponseEntity<?> saveItinerary(@RequestBody Itinerary itinerary, @RequestParam Long id) {
@@ -80,5 +64,15 @@ public class ItineraryController {
     }
 
     // Delete Itinerary
+
+    // Get Itinerary By User ID - delete this
+//    @GetMapping("/user/{userId}")
+//    public List<Itinerary> getUserItinerariesByUserId(Long id) {
+//        List<Itinerary> itineraries = itineraryService.getUserItinerariesByUserId(id);
+//        if (itineraries.isEmpty()) {
+//            throw new RuntimeException("No itineraries found for the user with ID: " + id);
+//        }
+//        return itineraries;
+//    }
 
 }

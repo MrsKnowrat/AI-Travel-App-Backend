@@ -21,13 +21,6 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-    /* CRUD
-    C- Included here
-    R- Included here
-    U- Included here
-    D- Included here
-    */
-
     // Create Activity
     @PostMapping
     public ResponseEntity<Activity> createActivity(@RequestBody Activity activity) {
@@ -40,16 +33,18 @@ public class ActivityController {
         return ResponseEntity.ok(activityService.getAllActivities());
     }
 
+
+
     // Get activity by ID - keep or adjust to activity name?
-    @GetMapping("/{id}")
-    public ResponseEntity<Activity> getActivityById(@PathVariable Long id) {
-        Optional<Activity> activity = activityService.getActivityById(id);
-        if (activity.isPresent()) {
-            return ResponseEntity.ok(activity.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Activity> getActivityById(@PathVariable Long id) {
+//        Optional<Activity> activity = activityService.getActivityById(id);
+//        if (activity.isPresent()) {
+//            return ResponseEntity.ok(activity.get());
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     // Update/Save Activity
 
