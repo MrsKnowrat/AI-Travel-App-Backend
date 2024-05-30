@@ -33,7 +33,7 @@ public class Profile {
     private String lastName;
 
     @Column(name = "dateOfBirth", nullable = false, length = 10)
-    @NotNull(message = "Date of birth is required in this format: yyyy/mm/dd")
+    @NotNull(message = "Date of birth is required in this format: yyyy-mm-dd")
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate dateOfBirth;
 
@@ -43,6 +43,6 @@ public class Profile {
     private String preferences;
 
     @OneToOne(mappedBy = "profile")
-    @JsonIgnore // to avoid infinite loop between user and profile when registering a new user and creating a profile
+    @JsonIgnore // added to avoid infinite loop between user and profile when registering a new user and creating a profile
     private User user; // This defines relationship between the User and Profile entities in relational DB managed by JPA.
 }

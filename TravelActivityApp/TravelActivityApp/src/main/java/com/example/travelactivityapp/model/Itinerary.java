@@ -1,5 +1,5 @@
 package com.example.travelactivityapp.model;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -18,9 +18,11 @@ import java.util.Set;
 @Builder
 public class Itinerary {
 
+        // TODO 4
+        // add more things to your itinerary DTO/model like travel preferences (eg. family with 2 adults 2 kids or whatever)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "user_Id", updatable = false, nullable = false)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @NotBlank(message = "Title is required")
@@ -37,8 +39,9 @@ public class Itinerary {
     @Column(name = "End Date", nullable = false)
     private LocalDate endDate;
 
+    @JsonBackReference // prevent infinite reference loop
     @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
+    @JoinColumn(name = "user_id", insertable = true, updatable = true, nullable = false)
     private User user;
 
     @ManyToMany

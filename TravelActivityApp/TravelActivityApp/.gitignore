@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore config properties to keep sensitive data out of version control
+src/main/resources/config.properties
+

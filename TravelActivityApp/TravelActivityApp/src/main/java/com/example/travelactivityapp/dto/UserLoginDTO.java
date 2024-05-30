@@ -23,5 +23,3 @@ public class UserLoginDTO {
     @Size(min = 6, message = "Password must be at least 8 characters long") //Don't need JsonIgnore here because it is already in User
     private String password;
 }
-
-

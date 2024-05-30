@@ -1,5 +1,5 @@
 package com.example.travelactivityapp.model;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -50,6 +50,8 @@ public class User {
     @JoinColumn(name = "profile_id", nullable = false, unique = true)
     private Profile profile;
 
+    // help with infinite loop by loading itineraries but dont reload the user and their itineraries over and over
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // user owns the relationship
     private List<Itinerary> itineraries = new ArrayList<>();
 }
