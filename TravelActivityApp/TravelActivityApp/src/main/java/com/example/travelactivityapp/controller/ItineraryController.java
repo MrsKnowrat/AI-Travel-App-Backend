@@ -59,7 +59,6 @@ public class ItineraryController {
         } catch (Exception e) {
                     CommonResponse response = CommonResponse.builder().hasError(true).message("Itinerary failed to update").status(HttpStatus.BAD_REQUEST).build();
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-                    //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new CommonResponse(true, null, "Error updating itinerary: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
         }
     }
 
@@ -71,19 +70,18 @@ public class ItineraryController {
 
         return ResponseEntity.ok(response);
     }
-
-
-
-    // Delete Itinerary
-
-    // Get Itinerary By User ID - delete this
-//    @GetMapping("/user/{userId}")
-//    public List<Itinerary> getUserItinerariesByUserId(Long id) {
-//        List<Itinerary> itineraries = itineraryService.getUserItinerariesByUserId(id);
-//        if (itineraries.isEmpty()) {
-//            throw new RuntimeException("No itineraries found for the user with ID: " + id);
-//        }
-//        return itineraries;
-//    }
-
 }
+
+    // Delete Itinerary - coming soon
+
+    // Get Itinerary By User ID 
+    // @GetMapping("/user/{userId}")
+    // public List<Itinerary> getUserItinerariesByUserId(Long id) {
+    // List<Itinerary> itineraries =
+    // itineraryService.getUserItinerariesByUserId(id);
+    // if (itineraries.isEmpty()) {
+    // throw new RuntimeException("No itineraries found for the user with ID: " +
+    // id);
+    // }
+    // return itineraries;
+    // }
