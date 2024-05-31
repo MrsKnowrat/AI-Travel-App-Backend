@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
+@Repository // This is a Spring annotation that marks the interface as a repository
 public interface IUserRepository extends JpaRepository<User, Long> {
-    Optional<User> findUserByUsername(String username);
+    Optional<User> findUserByUsername(String username); // This method finds the user by username
 
-    Optional<User> findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email); // This method finds the user by email
 }

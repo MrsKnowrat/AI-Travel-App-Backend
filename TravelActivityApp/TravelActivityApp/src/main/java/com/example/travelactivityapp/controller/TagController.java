@@ -1,6 +1,6 @@
 package com.example.travelactivityapp.controller;
 
-/* This class handles  */
+// This class handles HTTP requests for tags 
 
 import com.example.travelactivityapp.model.Tag;
 import com.example.travelactivityapp.service.TagService;
@@ -26,41 +26,37 @@ public class TagController {
 
     // Create Tag
     @PostMapping
-    public ResponseEntity<Tag> createTag(@Valid @RequestBody Tag tag) {
-        return ResponseEntity.ok(tagService.saveTag(tag));
+    public ResponseEntity<Tag> createTag(@Valid @RequestBody Tag tag) { // Returns response entity with saved tag
+        return ResponseEntity.ok(tagService.saveTag(tag)); // Saves tag
     }
 
     // Get all tags
     @GetMapping
-    public ResponseEntity<List<Tag>> getAllTags() {
-        return ResponseEntity.ok(tagService.getAllTags());
+    public ResponseEntity<List<Tag>> getAllTags() { // Returns response entity with list of tags
+        return ResponseEntity.ok(tagService.getAllTags()); // Gets all tags
     }
 
     // Get tag by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Tag> getTagById(@Valid @PathVariable Long id) {
-        Optional<Tag> tag = tagService.getTagById(id);
-        if (tag.isPresent()) {
-            return ResponseEntity.ok(tag.get());
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Tag> getTagById(@Valid @PathVariable Long id) { // Returns response entity with tag by id
+        Optional<Tag> tag = tagService.getTagById(id); // Gets tag by id
+        if (tag.isPresent()) { // If tag is present
+            return ResponseEntity.ok(tag.get()); // Returns response entity with tag
+        } else { // If tag is not present   
+            return ResponseEntity.notFound().build(); // Returns response entity with no content
         }
     }
 
-    // Update/Save Tag -- does it make sense to keep this method since the one below has a save on TagService?
-    // Should save be on all of these methods?
-
-
     // Update Tag by ID
     @PutMapping("/{id}")
-    public ResponseEntity<Tag> updateTag(@Valid @PathVariable Long id, @RequestBody Tag tagDetails) {
-        return ResponseEntity.ok(tagService.updateTag(id, tagDetails));
+    public ResponseEntity<Tag> updateTag(@Valid @PathVariable Long id, @RequestBody Tag tagDetails) { // Returns response entity with updated tag
+        return ResponseEntity.ok(tagService.updateTag(id, tagDetails)); // Updates tag
     }
 
     // Delete Tag
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTag(@Valid @PathVariable Long id) {
-        tagService.deleteTag(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteTag(@Valid @PathVariable Long id) { // Returns response entity with no content
+        tagService.deleteTag(id); // Deletes tag
+        return ResponseEntity.noContent().build(); // Returns response entity with no content
     }
 }

@@ -46,29 +46,29 @@ public class AuthController {
         try {
             User user = userService.registerUser(userRegistrationDTO); // calls registerUser to process reg data
             CommonResponse response = CommonResponse.builder() // builds CR object
-                .hasError(false)
-                .data(user)
-                .message("User and profile created successfully")
-                .status(HttpStatus.OK)
+                .hasError(false) // sets hasError to false
+                .data(user) // sets data to user
+                .message("User and profile created successfully") // sets message
+                .status(HttpStatus.OK) // sets status to OK
                 .build(); // response object includes new user data w/success msg
             return ResponseEntity.ok(response); // returns RE with CR object re success status
         } catch (RuntimeException e) { // RE thrown if issue during reg
-            CommonResponse response = CommonResponse.builder()
-                    .hasError(true)
-                    .error(e.getMessage())
-                    .message("Failed to create user")
-                    .status(HttpStatus.BAD_REQUEST)
-                    .build();
+            CommonResponse response = CommonResponse.builder() // builds CR object
+                    .hasError(true) // sets hasError to true
+                    .error(e.getMessage()) // sets error message
+                    .message("Failed to create user") // sets message
+                    .status(HttpStatus.BAD_REQUEST) // sets status
+                    .build(); // builds CR object
             return ResponseEntity.badRequest().body(response); // RE w/CR and bad HTTP status
         }
     }
 
     // Existing User Login
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO userLoginDTO) {
-        User user = userService.loginUser(userLoginDTO);
-        CommonResponse response = CommonResponse.builder().hasError(false).data(user).message("User authenticated successfully").status(HttpStatus.OK).build();
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO userLoginDTO) { // Returns response entity with logged in user
+        User user = userService.loginUser(userLoginDTO); // Logs in user
+        CommonResponse response = CommonResponse.builder().hasError(false).data(user).message("User authenticated successfully").status(HttpStatus.OK).build(); // Builds common response
+        return ResponseEntity.ok(response); // Returns response entity with response
     }
 }
 

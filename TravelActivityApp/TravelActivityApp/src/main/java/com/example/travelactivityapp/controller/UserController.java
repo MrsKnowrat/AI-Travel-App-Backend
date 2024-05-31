@@ -1,6 +1,6 @@
 package com.example.travelactivityapp.controller;
 
-/* This class handles  */
+// This class handles HTTP requests for users 
 
 import com.example.travelactivityapp.dto.CommonResponse;
 import com.example.travelactivityapp.dto.UserUpdateDTO;
@@ -26,18 +26,18 @@ public class UserController {
 
     // Get User By Username
     @GetMapping("/username/{username}")
-    public ResponseEntity<?> getUserByUsername(@Valid @PathVariable String username) {
-        User user = userService.getUserByUsername(username);
-        CommonResponse response = CommonResponse.builder().hasError(false).data(user).message("User Created successfully").status(HttpStatus.OK).build();
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> getUserByUsername(@Valid @PathVariable String username) { // Returns response entity with user by username
+        User user = userService.getUserByUsername(username); // Gets user by username
+        CommonResponse response = CommonResponse.builder().hasError(false).data(user).message("User Created successfully").status(HttpStatus.OK).build(); // Builds common response
+        return ResponseEntity.ok(response); // Returns response entity with response
     }
 
     // Update User
     @PutMapping("/{username}")
-    public ResponseEntity<?> updateUserByUsername(@Valid @PathVariable String username, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
-        User updatedUser = userService.updateUserByUsername(username, userUpdateDTO);
-        CommonResponse response = CommonResponse.builder().hasError(false).data(updatedUser).message("User updated successfully").status(HttpStatus.OK).build();
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> updateUserByUsername(@Valid @PathVariable String username, @Valid @RequestBody UserUpdateDTO userUpdateDTO) { // Returns response entity with updated user
+        User updatedUser = userService.updateUserByUsername(username, userUpdateDTO); // Updates user by username
+        CommonResponse response = CommonResponse.builder().hasError(false).data(updatedUser).message("User updated successfully").status(HttpStatus.OK).build(); // Builds common response
+        return ResponseEntity.ok(response); // Returns response entity with response
     }
 
     // Delete User & Profile - Coming soon!
