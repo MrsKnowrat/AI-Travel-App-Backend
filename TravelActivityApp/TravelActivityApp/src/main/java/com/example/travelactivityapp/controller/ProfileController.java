@@ -1,5 +1,7 @@
 package com.example.travelactivityapp.controller;
 
+/* This class handles  */
+
 import com.example.travelactivityapp.model.Profile;
 import com.example.travelactivityapp.service.ProfileService;
 import jakarta.validation.Valid;
@@ -11,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
-@RestController
-@RequestMapping("/profiles")
-@Validated
-@CrossOrigin(origins = "*")
+@Slf4j // Enables logging within the class
+@RestController // Marks class as controller; methods return domain object
+@Validated // Ensures beans are validated before processing
+@CrossOrigin(origins = "*") // Allows c/o requests from all domains
+@RequestMapping("/profiles") // Maps HTTP requests to handler methods of MVC and REST controllers.
 public class ProfileController {
 
-    @Autowired
+    @Autowired // Handles business logic for user profile-related ops
     private ProfileService profileService;
 
     @GetMapping("/user/{userId}")

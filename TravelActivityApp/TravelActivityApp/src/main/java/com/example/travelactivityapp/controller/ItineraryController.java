@@ -1,5 +1,7 @@
 package com.example.travelactivityapp.controller;
 
+/* This class handles  */
+
 import com.example.travelactivityapp.dto.CommonResponse;
 import com.example.travelactivityapp.dto.ItineraryDTO;
 import com.example.travelactivityapp.model.Itinerary;
@@ -15,17 +17,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
-@RestController
-@RequestMapping("/itineraries")
-@Validated
-@CrossOrigin(origins = "*")
+@Slf4j // Enables logging within the class
+@RestController // Marks class as controller; methods return domain object
+@Validated // Ensures beans are validated before processing
+@CrossOrigin(origins = "*") // Allows c/o requests from all domains
+@RequestMapping("/itineraries") // Maps HTTP requests to handler methods of MVC and REST controllers.
 public class ItineraryController {
 
-    @Autowired
+    @Autowired // Handles business logic for itinerary-related ops
     ItineraryService itineraryService;
 
-    @Autowired
+    @Autowired // For object mapping
     ModelMapperUtil modelMapperUtil;
 
     // Create Itinerary

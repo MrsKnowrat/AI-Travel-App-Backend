@@ -1,9 +1,10 @@
 package com.example.travelactivityapp.controller;
 
+/* This class handles  */
+
 import com.example.travelactivityapp.dto.CommonResponse;
 import com.example.travelactivityapp.dto.UserUpdateDTO;
 import com.example.travelactivityapp.model.User;
-import com.example.travelactivityapp.repository.IUserRepository;
 import com.example.travelactivityapp.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -13,23 +14,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
-@RestController
-@RequestMapping("/users")
-@Validated
-@CrossOrigin(origins = "*")
+@Slf4j // Enables logging within the class
+@RestController // Marks class as controller; methods return domain object
+@Validated // Ensures beans are validated before processing
+@CrossOrigin(origins = "*") // Allows c/o requests from all domains
+@RequestMapping("/users") // Maps HTTP requests to handler methods of MVC and REST controllers.
 public class UserController {
 
-    @Autowired
+    @Autowired // Handles business logic for user ops
     private UserService userService;
 
-    /* CRUD
-    C- Not included here: handled by AuthController & UserService signup and login methods
-    R- Included here
-    U- Included here
-    D- Included here
-    */
-
+    // Get User By Username
     @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@Valid @PathVariable String username) {
         User user = userService.getUserByUsername(username);
@@ -45,6 +40,5 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    // Delete User
-
+    // Delete User & Profile - Coming soon!
 }

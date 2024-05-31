@@ -10,16 +10,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@Slf4j
-@RestController
-@RequestMapping("/activities")
-@Validated
-@CrossOrigin(origins = "*")
+@Slf4j // Enables logging within the class
+@RestController // Marks class as controller; methods return domain object
+@Validated // Ensures beans are validated before processing
+@CrossOrigin(origins = "*") // Allows c/o requests from all domains
+@RequestMapping("/activities") // Maps HTTP requests to handler methods of MVC and REST controllers.
 public class ActivityController {
 
-    @Autowired
+    @Autowired // Handles business logic for activity-related ops
     ActivityService activityService;
 
     // Create Activity

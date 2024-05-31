@@ -1,5 +1,7 @@
 package com.example.travelactivityapp.controller;
 
+/* This class handles  */
+
 import com.example.travelactivityapp.model.Tag;
 import com.example.travelactivityapp.service.TagService;
 import jakarta.validation.Valid;
@@ -12,22 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
-@RestController
-@RequestMapping("/tags")
-@Validated
-@CrossOrigin(origins = "*")
+@Slf4j // Enables logging within the class
+@RestController // Marks class as controller; methods return domain object
+@Validated // Ensures beans are validated before processing
+@CrossOrigin(origins = "*") // Allows c/o requests from all domains
+@RequestMapping("/tags") // Maps HTTP requests to handler methods of MVC and REST controllers.
 public class TagController {
 
-    @Autowired
+    @Autowired // Handles business logic for tag-related ops
     TagService tagService;
-
-    /* CRUD
-    C- Included here
-    R- Included here
-    U- Included here
-    D- Included here
-    */
 
     // Create Tag
     @PostMapping

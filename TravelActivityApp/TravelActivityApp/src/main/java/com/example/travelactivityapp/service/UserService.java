@@ -48,13 +48,9 @@ public class UserService {
             // Create and set the profile
             Profile newProfile = new Profile();
             // Set default values or use DTO to set profile details
-            //newProfile.setFirstName("");
             newProfile.setFirstName(userRegistrationDTO.getFirstName());
-            //newProfile.setLastName("");
             newProfile.setLastName(userRegistrationDTO.getLastName());
-            //newProfile.setDateOfBirth(LocalDate.now());
             newProfile.setDateOfBirth(userRegistrationDTO.getDateOfBirth());
-            //userRepository.save(newUser);
             newProfile.setUser(newUser);
             Profile savedProfile = profileRepository.save(newProfile); // Save the profile first
             newUser.setProfile(savedProfile); // Set the saved profile to the user
