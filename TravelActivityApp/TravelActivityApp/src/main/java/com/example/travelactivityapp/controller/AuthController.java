@@ -66,24 +66,9 @@ public class AuthController {
     // Existing User Login
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO userLoginDTO) {
-        try {
-            User user = userService.loginUser(userLoginDTO);
-            CommonResponse response = CommonResponse.builder()
-                    .hasError(false)
-                    .data(user)
-                    .message("You are logged in! Let's go!")
-                    .status(HttpStatus.OK)
-                    .build();
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            CommonResponse response = CommonResponse.builder()
-                    .hasError(true)
-                    .error(e.getMessage())
-                    .message("Authentication failed. Please try again.")
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .build();
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-        }
+        User user = userService.loginUser(userLoginDTO);
+        CommonResponse response = CommonResponse.builder().hasError(false).data(user).message("User authenticated successfully").status(HttpStatus.OK).build();
+        return ResponseEntity.ok(response);
     }
 }
 

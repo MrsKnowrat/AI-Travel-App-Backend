@@ -1,6 +1,7 @@
 package com.example.travelactivityapp.controller;
 
-/* This class handles  */
+/* This class manages profile management (CRUD), data validation, and integration
+* with other services. */
 
 import com.example.travelactivityapp.model.Profile;
 import com.example.travelactivityapp.service.ProfileService;
@@ -23,6 +24,7 @@ public class ProfileController {
     @Autowired // Handles business logic for user profile-related ops
     private ProfileService profileService;
 
+    // Get User Profile by ID - returns RE containing list of profile objects
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Profile>> getProfileByUserId(@Valid @PathVariable Long id) {
         List<Profile> profile = profileService.getProfileByUserId(id);
@@ -32,6 +34,7 @@ public class ProfileController {
         return ResponseEntity.ok(profile);
     }
 
+    // Update Profile - returns RE containing profile object
     @PutMapping("/{id}")
     public ResponseEntity<Profile> updateProfile(@Valid @PathVariable Long id, @RequestBody Profile profileDetails) {
         Profile updatedProfile = profileService.updateProfile(id, profileDetails);
