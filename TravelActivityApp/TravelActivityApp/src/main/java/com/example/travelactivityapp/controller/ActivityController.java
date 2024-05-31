@@ -2,6 +2,7 @@ package com.example.travelactivityapp.controller;
 
 import com.example.travelactivityapp.model.Activity;
 import com.example.travelactivityapp.service.ActivityService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ActivityController {
 
     // Create Activity
     @PostMapping
-    public ResponseEntity<Activity> createActivity(@RequestBody Activity activity) {
+    public ResponseEntity<Activity> createActivity(@Valid @RequestBody Activity activity) {
         return ResponseEntity.ok(activityService.saveActivity(activity));
     }
 
@@ -37,7 +38,7 @@ public class ActivityController {
 
     // Get activity by ID - keep or adjust to activity name?
 //    @GetMapping("/{id}")
-//    public ResponseEntity<Activity> getActivityById(@PathVariable Long id) {
+//    public ResponseEntity<Activity> getActivityById(@Valid @PathVariable Long id) {
 //        Optional<Activity> activity = activityService.getActivityById(id);
 //        if (activity.isPresent()) {
 //            return ResponseEntity.ok(activity.get());
@@ -51,13 +52,13 @@ public class ActivityController {
 
     // Update Activity - keep this?
     @PutMapping("/{id}")
-    public ResponseEntity<Activity> updateActivity(@PathVariable Long id, @RequestBody Activity activityDetails) {
+    public ResponseEntity<Activity> updateActivity(@Valid @PathVariable Long id, @RequestBody Activity activityDetails) {
         return ResponseEntity.ok(activityService.updateActivity(id, activityDetails));
     }
 
     // Delete Activity
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteActivity(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteActivity(@Valid @PathVariable Long id) {
         activityService.deleteActivity(id);
         return ResponseEntity.noContent().build();
     }

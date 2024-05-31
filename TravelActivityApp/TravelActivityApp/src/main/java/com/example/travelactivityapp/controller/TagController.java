@@ -43,7 +43,7 @@ public class TagController {
 
     // Get tag by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Tag> getTagById(@PathVariable Long id) {
+    public ResponseEntity<Tag> getTagById(@Valid @PathVariable Long id) {
         Optional<Tag> tag = tagService.getTagById(id);
         if (tag.isPresent()) {
             return ResponseEntity.ok(tag.get());
@@ -58,13 +58,13 @@ public class TagController {
 
     // Update Tag by ID
     @PutMapping("/{id}")
-    public ResponseEntity<Tag> updateTag(@PathVariable Long id, @RequestBody Tag tagDetails) {
+    public ResponseEntity<Tag> updateTag(@Valid @PathVariable Long id, @RequestBody Tag tagDetails) {
         return ResponseEntity.ok(tagService.updateTag(id, tagDetails));
     }
 
     // Delete Tag
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTag(@Valid @PathVariable Long id) {
         tagService.deleteTag(id);
         return ResponseEntity.noContent().build();
     }
