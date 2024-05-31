@@ -29,7 +29,7 @@ public class ActivityController {
 
     // Get all activities
     @GetMapping // Maps HTTP GET requests to this method
-    public ResponseEntity<List<Activity>> getAllActivities() { // Returns response entity with list of all activities
+    public ResponseEntity<List<Activity>> getAllActivities(@Valid @RequestBody Activity activity) { // Returns response entity with list of all activities
         return ResponseEntity.ok(activityService.getAllActivities()); // Gets all activities
     }
 

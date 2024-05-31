@@ -22,7 +22,7 @@ import java.util.List;
 public class ProfileController {
 
     @Autowired // Handles business logic for user profile-related ops
-    private ProfileService profileService;
+    ProfileService profileService;
 
     // Get User Profile by ID - returns RE containing list of profile objects
     @GetMapping("/user/{userId}")

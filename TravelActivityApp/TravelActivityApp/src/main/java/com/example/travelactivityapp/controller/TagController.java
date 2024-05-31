@@ -32,7 +32,7 @@ public class TagController {
 
     // Get all tags
     @GetMapping
-    public ResponseEntity<List<Tag>> getAllTags() { // Returns response entity with list of tags
+    public ResponseEntity<List<Tag>> getAllTags(@Valid @RequestBody Tag tag) { // Returns response entity with list of tags
         return ResponseEntity.ok(tagService.getAllTags()); // Gets all tags
     }
 
