@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import java.util.List;
 import java.time.LocalDate;
 
 @Data
@@ -30,4 +30,7 @@ public class ItineraryDTO {
     private LocalDate endDate;
 
     private String username;
+
+    private List<ActivityDTO> activities;
+    private List<TagDTO> tags;
 }

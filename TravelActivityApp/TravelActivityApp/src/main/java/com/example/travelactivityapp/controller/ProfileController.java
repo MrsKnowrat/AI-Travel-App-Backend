@@ -2,6 +2,7 @@ package com.example.travelactivityapp.controller;
 
 import com.example.travelactivityapp.model.Profile;
 import com.example.travelactivityapp.service.ProfileService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class ProfileController {
     */
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Profile>> getProfileByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<Profile>> getProfileByUserId(@Valid @PathVariable Long id) {
         List<Profile> profile = profileService.getProfileByUserId(id);
         if (profile.isEmpty()) {
             throw new RuntimeException("No profiles found for the user with ID: " + id);
@@ -37,14 +38,14 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Profile> updateProfile(@PathVariable Long id, @RequestBody Profile profileDetails) {
+    public ResponseEntity<Profile> updateProfile(@Valid @PathVariable Long id, @RequestBody Profile profileDetails) {
         Profile updatedProfile = profileService.updateProfile(id, profileDetails);
         return ResponseEntity.ok(updatedProfile);
     }
 
     // Delete Profile & User
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProfile(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProfile(@Valid @PathVariable Long id) {
         profileService.deleteProfile(id);
         return ResponseEntity.noContent().build();
     }

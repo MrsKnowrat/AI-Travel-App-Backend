@@ -1,5 +1,7 @@
 package com.example.travelactivityapp.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -40,18 +42,22 @@ public class Itinerary {
     private LocalDate endDate;
 
     @JsonBackReference // prevent infinite reference loop
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = true, updatable = true, nullable = false)
     private User user;
 
-    @ManyToMany
+    @Builder.Default
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "itinerary_tag",
             joinColumns = @JoinColumn(name = "itinerary_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags = new HashSet<>();
 
-    @ManyToMany
+    @Builder.Default
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "itinerary_activity",
             joinColumns = @JoinColumn(name = "itinerary_id"),

@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,9 +23,11 @@ public class Tag {
     private String tagName;
 
     @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
     private Set<Itinerary> itineraries = new HashSet<>();
 
     @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
     private Set<Activity> activities = new HashSet<>();
 
 }

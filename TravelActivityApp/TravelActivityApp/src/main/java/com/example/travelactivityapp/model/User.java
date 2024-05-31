@@ -51,7 +51,7 @@ public class User {
     private Profile profile;
 
     // help with infinite loop by loading itineraries but dont reload the user and their itineraries over and over
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // user owns the relationship
     private List<Itinerary> itineraries = new ArrayList<>();
 }
