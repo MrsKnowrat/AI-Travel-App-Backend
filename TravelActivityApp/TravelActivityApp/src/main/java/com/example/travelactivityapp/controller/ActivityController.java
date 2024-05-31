@@ -10,56 +10,39 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@Slf4j
-@RestController
-@RequestMapping("/activities")
-@Validated
-@CrossOrigin(origins = "*")
+@Slf4j // Enables logging within the class
+@RestController // Marks class as controller; methods return domain object
+@Validated // Ensures beans are validated before processing
+@CrossOrigin(origins = "*") // Allows c/o requests from all domains
+@RequestMapping("/activities") // Maps HTTP requests to handler methods of MVC and REST controllers.
 public class ActivityController {
 
-    @Autowired
+    @Autowired // Handles business logic for activity-related ops
     ActivityService activityService;
 
     // Create Activity
-    @PostMapping
-    public ResponseEntity<Activity> createActivity(@Valid @RequestBody Activity activity) {
-        return ResponseEntity.ok(activityService.saveActivity(activity));
+    @PostMapping // Maps HTTP POST requests to this method
+    public ResponseEntity<Activity> createActivity(@Valid @RequestBody Activity activity) { // Returns response entity with created activity
+        return ResponseEntity.ok(activityService.saveActivity(activity)); // Saves activity
     }
 
     // Get all activities
-    @GetMapping
-    public ResponseEntity<List<Activity>> getAllActivities() {
-        return ResponseEntity.ok(activityService.getAllActivities());
+    @GetMapping // Maps HTTP GET requests to this method
+    public ResponseEntity<List<Activity>> getAllActivities(@Valid @RequestBody Activity activity) { // Returns response entity with list of all activities
+        return ResponseEntity.ok(activityService.getAllActivities()); // Gets all activities
     }
 
-
-
-    // Get activity by ID - keep or adjust to activity name?
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Activity> getActivityById(@Valid @PathVariable Long id) {
-//        Optional<Activity> activity = activityService.getActivityById(id);
-//        if (activity.isPresent()) {
-//            return ResponseEntity.ok(activity.get());
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
-    // Update/Save Activity
-
-
-    // Update Activity - keep this?
-    @PutMapping("/{id}")
-    public ResponseEntity<Activity> updateActivity(@Valid @PathVariable Long id, @RequestBody Activity activityDetails) {
-        return ResponseEntity.ok(activityService.updateActivity(id, activityDetails));
+    // Update Activity 
+    @PutMapping("/{id}") // Maps HTTP PUT requests to this method
+    public ResponseEntity<Activity> updateActivity(@Valid @PathVariable Long id, @RequestBody Activity activityDetails) { // Returns response entity with updated activity
+        return ResponseEntity.ok(activityService.updateActivity(id, activityDetails)); // Updates activity
     }
 
     // Delete Activity
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteActivity(@Valid @PathVariable Long id) {
-        activityService.deleteActivity(id);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/{id}") // Maps HTTP DELETE requests to this method
+    public ResponseEntity<Void> deleteActivity(@Valid @PathVariable Long id) { // Returns response entity with no content
+        activityService.deleteActivity(id); // Deletes activity
+        return ResponseEntity.noContent().build(); // Returns response entity with no content
     }
 }

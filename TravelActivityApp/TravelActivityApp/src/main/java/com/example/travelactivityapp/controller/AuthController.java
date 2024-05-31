@@ -1,11 +1,12 @@
 package com.example.travelactivityapp.controller;
 
-// This class manages the creation of users, removing the need for a separate create user endpoint in UserController.
+/* This class handles authentication-related ops, including user registration
+ and login of existing users, providing endpoints. Accordingly, createUser or loginUser
+ is not needed in the UserController. */
 
 import com.example.travelactivityapp.dto.CommonResponse;
 import com.example.travelactivityapp.dto.UserLoginDTO;
 import com.example.travelactivityapp.dto.UserRegistrationDTO;
-import com.example.travelactivityapp.model.Profile;
 import com.example.travelactivityapp.model.User;
 import com.example.travelactivityapp.repository.IUserRepository;
 import com.example.travelactivityapp.service.ProfileService;
@@ -19,42 +20,37 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
-@RestController
-@Validated
-@CrossOrigin(origins = "*") // Helps backend & frontend can communicate
-@RequestMapping("/auth")
+@Slf4j // Enables logging within the class
+@RestController // Marks class as controller; methods return domain object
+@Validated // Ensures beans are validated before processing
+@CrossOrigin(origins = "*") // Allows c/o requests from all domains
+@RequestMapping("/auth") // Maps HTTP requests to handler methods of MVC and REST controllers.
 public class AuthController {
 
-    @Autowired
+    @Autowired // Handles business logic for user ops
     UserService userService;
 
-    @Autowired
+    @Autowired // For direct repository access
     IUserRepository userRepository;
 
-    @Autowired
+    @Autowired // Handles business logic for user profiles
     ProfileService profileService;
 
-    @Autowired
+    @Autowired // For object mapping
     ModelMapperUtil modelMapperUtil;
 
-    /* CRUD
-    C- Included here: handled by AuthController & UserService signup and login methods
-    R- Not necessary here
-    U- Not necessary here
-    D- Not necessary here
-    */
-
+    // User Registration/Signup
     @PostMapping("/signup")
+    // Method accepts regDTO object to enforce validation constraints within DTO
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
         try {
             User user = userService.registerUser(userRegistrationDTO);
             CommonResponse response = CommonResponse.builder()
-                .hasError(false)
-                .data(user)
-                .message("User and profile created successfully")
-                .status(HttpStatus.OK)
-                .build();
+                    .hasError(false)
+                    .data(user)
+                    .message("User and profile created successfully")
+                    .status(HttpStatus.OK)
+                    .build();
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             CommonResponse response = CommonResponse.builder()
@@ -67,6 +63,7 @@ public class AuthController {
         }
     }
 
+    // Existing User Login
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO userLoginDTO) {
         User user = userService.loginUser(userLoginDTO);
